@@ -11,8 +11,8 @@ export class Scene extends Phaser.Scene {
   myCursor?: Phaser.Types.Input.Keyboard.CursorKeys;
   myCombo?: Phaser.Input.Keyboard.KeyCombo;
   character: string;
-
-
+  tomato?: GameObjects.Sprite;
+  tomatoSpacing?: GameObjects.Sprite;
 
   constructor() {
     super({ key: "Bootloader" });
@@ -27,6 +27,17 @@ export class Scene extends Phaser.Scene {
     this.load.image('bg', 'bg.png');
     this.load.image('demon', 'demon.png');
     this.load.image('knight', 'knight.png');
+    this.load.spritesheet('tomato', 'tomato/tomato.png', {
+      frameWidth: 16,
+      frameHeight: 25
+    });
+    this.load.spritesheet('tomato_spacing',
+      'tomato_spacing/tomato_spacing.png', {
+      frameWidth: 16,
+      frameHeight: 25,
+      margin: 1,
+      spacing: 2
+    });
   }
 
   getDistance(x1: number, y1: number, x2: number, y2: number) {
@@ -123,11 +134,31 @@ export class Scene extends Phaser.Scene {
       this.myCharacter = this.add.image(200, 250, 'knight');
       this.myCharacter.scale = 2;
     }
+
+    this.tomato = this.add.sprite(100, 100, 'tomato', 0).setScale(4);
+    this.tomatoSpacing = this.add.sprite(150, 150, 'tomato_spacing', 0).setScale(4);
+
+    let tomatooo = this.anims.create({
+      
+      key: 'tomato_camina',
+      frames: this.anims.generateFrameNumbers('tomato_spacing', {
+        start: 0,
+        end: 7
+      }),
+      repeat: -1,
+      frameRate: 24
+    });
+
+    console.log(this.anims.generateFrameNumbers('tomato_spacing', {
+      start: 0,
+      end: 7
+    }));
+
+    this.anims.play('tomato_camina', this.tomato!);
   }
 
   update(time: number, delta: number) {
     this.listenCursor(this.myCharacter, this.myCursor);
-
   }
 
 
