@@ -17,6 +17,8 @@ export class Scene extends Phaser.Scene {
   constructor() {
     super({ key: "Bootloader" });
     this.character = "demon";
+    alert("hola");
+    alert("hola1");
   }
 
   ngOnInit(): void {
