@@ -1,0 +1,48 @@
+{
+    "anims": [
+        {
+            "key": "portal_anim",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 10,
+            "frames": [
+                {
+                    "key": "portal",
+                    "frame": "frame_0_delay-0.1s"
+                },
+                {
+                    "key": "portal",
+                    "frame": "frame_1_delay-0.1s"
+                },
+                {
+                    "key": "portal",
+                    "frame": "frame_2_delay-0.1s"
+                },
+                {
+                    "key": "portal",
+                    "frame": "frame_3_delay-0.1s"
+                },
+                {
+                    "key": "portal",
+                    "frame": "frame_4_delay-0.1s"
+                },
+                {
+                    "key": "portal",
+                    "frame": "frame_5_delay-0.1s"
+                },
+                {
+                    "key": "portal",
+                    "frame": "frame_6_delay-0.1s"
+                },
+                {
+                    "key": "portal",
+                    "frame": "frame_7_delay-0.1s"
+                },
+                {
+                    "key": "portal",
+                    "frame": "frame_8_delay-0.1s"
+                }
+            ]
+        }
+    ]
+}
