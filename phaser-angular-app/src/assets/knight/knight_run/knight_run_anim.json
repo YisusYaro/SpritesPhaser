@@ -1,10 +1,10 @@
 {
     "anims": [
         {
-            "key": "knight_run_anim",
+            "key": "rwerwe",
             "type": "frames",
             "repeat": -1,
-            "frameRate": 10,
+            "frameRate": 4,
             "frames": [
                 {
                     "key": "knight_run",

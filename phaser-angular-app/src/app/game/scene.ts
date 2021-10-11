@@ -7,16 +7,15 @@ import { Injectable } from '@angular/core';
 export class Scene extends Phaser.Scene {
 
   bg?: GameObjects.Image;
-  myCharacter?: GameObjects.Sprite;
-  myCursor?: Phaser.Types.Input.Keyboard.CursorKeys;
-  myCombo?: Phaser.Input.Keyboard.KeyCombo;
-  character: string;
-  tomato?: GameObjects.Sprite;
-  tomatoSpacing?: GameObjects.Sprite;
+  knight?: GameObjects.Sprite;
+  necromancer?: GameObjects.Sprite;
+  ice_zombie?: GameObjects.Sprite;
+  masked_orc?: GameObjects.Sprite;
+
 
   constructor() {
-    super({ key: "Bootloader" });
-    this.character = "demon";
+    super({ key: "menu" });
+
   }
 
   ngOnInit(): void {
@@ -26,153 +25,67 @@ export class Scene extends Phaser.Scene {
     this.load.path = "../../assets/";
     this.load.image('bg', 'bg.png');
 
-    this.load.spritesheet('tomato', 'tomato/tomato.png', {
-      frameWidth: 16,
-      frameHeight: 25
-    });
-    this.load.spritesheet('tomato_spacing',
-      'tomato_spacing/tomato_spacing.png', {
-      frameWidth: 16,
-      frameHeight: 25,
-      margin: 1,
-      spacing: 2
-    });
+    //knight
+    this.load.atlas('knight_idle', 'knight/knight_idle/knight_idle.png',
+      'knight/knight_idle/knight_idle_atlas.json');
+    this.load.animation('knight_anim_', 'knight/knight_idle/knight_idle_anim.json');
 
-    this.load.atlas('knight_run', 'knight/knight_run/knight_run.png',
-      'knight/knight_run/knight_run_atlas.json');
+    //necromancer
+    this.load.atlas('necromancer_idle', 'necromancer/necromancer_idle/necromancer_idle.png',
+      'necromancer/necromancer_idle/necromancer_idle_atlas.json');
+    this.load.animation('necromancer_anim_', 'necromancer/necromancer_idle/necromancer_idle_anim.json');
 
-      this.load.animation('knight_anim_', 'knight/knight_run/knight_run_anim.json');
-  }
+    //ice_zombie
+    this.load.atlas('ice_zombie_idle', 'ice_zombie/ice_zombie_idle/ice_zombie_idle.png',
+      'ice_zombie/ice_zombie_idle/ice_zombie_idle_atlas.json');
+    this.load.animation('ice_zombie_anim_', 'ice_zombie/ice_zombie_idle/ice_zombie_idle_anim.json');
 
-  getDistance(x1: number, y1: number, x2: number, y2: number) {
-    return Math.hypot(x2 - x1, y2 - y1);
-  }
+    //masked_orc
+    this.load.atlas('masked_orc_idle', 'masked_orc/masked_orc_idle/masked_orc_idle.png',
+      'masked_orc/masked_orc_idle/masked_orc_idle_atlas.json');
+    this.load.animation('masked_orc_anim_', 'masked_orc/masked_orc_idle/masked_orc_idle_anim.json');
 
-  listenCursor(character: any, characterCursor: any) {
-    if (characterCursor.left.isDown) {
-      character.x--;
-      character.flipX = true;
-    }
-    if (characterCursor.right.isDown) {
-      character.x++;
-      character.flipX = false;
-    }
-    if (characterCursor.up.isDown) {
-      character.y--;
-    }
-    if (characterCursor.down.isDown) {
-      character.y++;
-    }
   }
 
   setKeyboard() {
     const keyCodes = Phaser.Input.Keyboard.KeyCodes;
 
-    this.myCursor = this.input.keyboard.createCursorKeys();
+    //this.myCursor = this.input.keyboard.createCursorKeys();
 
-    this.myCombo = this.input.keyboard.createCombo(
-      [keyCodes.B, keyCodes.N, keyCodes.M],
-      { resetOnMatch: true }
-    );
-
-    this.input.keyboard.on('keycombomatch', (keyCombo: Phaser.Input.Keyboard.KeyCombo) => {
-
-      //event for demonCombo
-      if (this.arraysAreIdentical([keyCodes.B, keyCodes.N, keyCodes.M], keyCombo.keyCodes)) {
-        this.setTintCharacter(this.myCharacter!);
-      }
-
-    });
   }
 
-  async setTintCharacter(character: GameObjects.Image) {
-    character.setTint(0xff0000);
-    await this.sleep(200);
-    character.setTint(0xffffff);
-    await this.sleep(200);
-    character.setTint(0xff0000);
-    await this.sleep(100);
-    character.setTint(0xffffff);
-    await this.sleep(100);
-    character.setTint(0xff0000);
-    await this.sleep(50);
-    character.setTint(0xffffff);
-    await this.sleep(50);
-    character.setTint(0xff0000);
-    await this.sleep(10);
-    character.setTint(0xffffff);
-    await this.sleep(10);
-    character.setTint(0xff0000);
-    await this.sleep(10);
-    character.setTint(0xffffff);
-    await this.sleep(10);
-  }
-
-  sleep(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  arraysAreIdentical(arr1: number[], arr2: number[]) {
-    if (arr1.length !== arr2.length) return false;
-    for (var i = 0, len = arr1.length; i < len; i++) {
-      if (arr1[i] !== arr2[i]) {
-        return false;
-      }
-    }
-    return true;
-  }
 
   create() {
 
     //keyboard
     this.setKeyboard();
+
     //bg
-
     this.bg = this.add.image(this.scale.width / 2, this.scale.height / 2, 'bg');
+
     //characters
-    this.tomato = this.add.sprite(150, 230, 'tomato', 0).setScale(4);
-    //this.tomatoSpacing = this.add.sprite(230, 200, 'tomato_spacing', 0).setScale(4);
 
-    this.anims.create({
+    //knight
+    this.knight = this.add.sprite(50, 230, 'knight_idle').setScale(3);
+    this.knight!.anims.play('knight_idle_anim');
 
-      key: 'tomato_camina',
-      frames: this.anims.generateFrameNumbers('tomato_spacing', {
-        start: 0,
-        end: 7
-      }),
-      repeat: -1,
-      frameRate: 24
-    });
+    //necromancer
+    this.necromancer = this.add.sprite(100, 242, 'necromancer_idle').setScale(3);
+    this.necromancer!.anims.play('necromancer_idle_anim');
 
-    // console.log(this.anims.generateFrameNumbers('tomato_spacing', {
-    //   start: 0,
-    //   end: 7
-    // }));
+    //ice_zombie
+    this.ice_zombie = this.add.sprite(150, 245, 'ice_zombie_idle').setScale(3);
+    this.ice_zombie!.anims.play('ice_zombie_idle_anim');
 
-    this.anims.play('tomato_camina', this.tomato!);
+    //masked_orc
+    this.masked_orc = this.add.sprite(200, 245, 'masked_orc_idle').setScale(3);
+    this.masked_orc!.anims.play('masked_orc_idle_anim');
 
-    this.myCharacter = this.add.sprite(50, 230, 'knight_run').setScale(4);
-
-    // this.anims.create({
-    //   key: 'knight_run_anim',
-    //   frames: this.anims.generateFrameNames('knight_run', {
-    //     prefix: 'knight_f_run_anim_f',
-    //     start: 0,
-    //     end: 3
-    //   }),
-    //   repeat: -1,
-    //   frameRate: 10
-    // });
-
-    
-
-    this.myCharacter!.anims.play('knight_run_anim');
-    
 
   }
 
   update(time: number, delta: number) {
-    this.listenCursor(this.myCharacter, this.myCursor);
+
   }
 
 
