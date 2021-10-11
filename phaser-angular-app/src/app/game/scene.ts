@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class Scene extends Phaser.Scene {
 
   bg?: GameObjects.Image;
-  myCharacter?: GameObjects.Image;
+  myCharacter?: GameObjects.Sprite;
   myCursor?: Phaser.Types.Input.Keyboard.CursorKeys;
   myCombo?: Phaser.Input.Keyboard.KeyCombo;
   character: string;
@@ -17,8 +17,6 @@ export class Scene extends Phaser.Scene {
   constructor() {
     super({ key: "Bootloader" });
     this.character = "demon";
-    alert("hola");
-    alert("hola1");
   }
 
   ngOnInit(): void {
@@ -27,8 +25,7 @@ export class Scene extends Phaser.Scene {
   preload() {
     this.load.path = "../../assets/";
     this.load.image('bg', 'bg.png');
-    this.load.image('demon', 'demon.png');
-    this.load.image('knight', 'knight.png');
+
     this.load.spritesheet('tomato', 'tomato/tomato.png', {
       frameWidth: 16,
       frameHeight: 25
@@ -40,6 +37,11 @@ export class Scene extends Phaser.Scene {
       margin: 1,
       spacing: 2
     });
+
+    this.load.atlas('knight_run', 'knight/knight_run/knight_run.png',
+      'knight/knight_run/knight_run_atlas.json');
+
+      this.load.animation('knight_anim_', 'knight/knight_run/knight_run_anim.json');
   }
 
   getDistance(x1: number, y1: number, x2: number, y2: number) {
@@ -128,20 +130,11 @@ export class Scene extends Phaser.Scene {
 
     this.bg = this.add.image(this.scale.width / 2, this.scale.height / 2, 'bg');
     //characters
-    if (this.character! == 'demon') {
-      this.myCharacter = this.add.image(100, 250, 'demon');
-      this.myCharacter.scale = 2;
-    }
-    if (this.character! == 'knight') {
-      this.myCharacter = this.add.image(200, 250, 'knight');
-      this.myCharacter.scale = 2;
-    }
+    this.tomato = this.add.sprite(150, 230, 'tomato', 0).setScale(4);
+    //this.tomatoSpacing = this.add.sprite(230, 200, 'tomato_spacing', 0).setScale(4);
 
-    this.tomato = this.add.sprite(100, 100, 'tomato', 0).setScale(4);
-    this.tomatoSpacing = this.add.sprite(150, 150, 'tomato_spacing', 0).setScale(4);
+    this.anims.create({
 
-    let tomatooo = this.anims.create({
-      
       key: 'tomato_camina',
       frames: this.anims.generateFrameNumbers('tomato_spacing', {
         start: 0,
@@ -151,12 +144,31 @@ export class Scene extends Phaser.Scene {
       frameRate: 24
     });
 
-    console.log(this.anims.generateFrameNumbers('tomato_spacing', {
-      start: 0,
-      end: 7
-    }));
+    // console.log(this.anims.generateFrameNumbers('tomato_spacing', {
+    //   start: 0,
+    //   end: 7
+    // }));
 
     this.anims.play('tomato_camina', this.tomato!);
+
+    this.myCharacter = this.add.sprite(50, 230, 'knight_run').setScale(4);
+
+    // this.anims.create({
+    //   key: 'knight_run_anim',
+    //   frames: this.anims.generateFrameNames('knight_run', {
+    //     prefix: 'knight_f_run_anim_f',
+    //     start: 0,
+    //     end: 3
+    //   }),
+    //   repeat: -1,
+    //   frameRate: 10
+    // });
+
+    
+
+    this.myCharacter!.anims.play('knight_run_anim');
+    
+
   }
 
   update(time: number, delta: number) {
