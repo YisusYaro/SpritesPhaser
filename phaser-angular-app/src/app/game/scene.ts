@@ -6,12 +6,15 @@ import { Injectable } from '@angular/core';
 
 export class Scene extends Phaser.Scene {
 
-  bg?: GameObjects.Image;
+  wood?: GameObjects.Image;
   portal?: GameObjects.Sprite;
   knight?: GameObjects.Sprite;
   necromancer?: GameObjects.Sprite;
   ice_zombie?: GameObjects.Sprite;
   masked_orc?: GameObjects.Sprite;
+  bd_scene?: GameObjects.Image;
+
+  myCharacter?: GameObjects.Sprite;
 
 
   constructor() {
@@ -24,7 +27,9 @@ export class Scene extends Phaser.Scene {
 
   preload() {
     this.load.path = "../../assets/";
-    this.load.image('bg', 'wood.jpg');
+    this.load.image('wood', 'wood.jpg');
+    this.load.image('bg_scene', 'bg.png');
+
 
     //portal
     this.load.atlas('portal', 'portal/portal.png',
@@ -68,8 +73,8 @@ export class Scene extends Phaser.Scene {
     //keyboard
     this.setKeyboard();
 
-    //bg
-    this.bg = this.add.image(this.scale.width / 2, this.scale.height / 2, 'bg');
+    //wood
+    this.wood = this.add.image(this.scale.width / 2, this.scale.height / 2, 'wood');
 
 
     //portal
@@ -82,22 +87,25 @@ export class Scene extends Phaser.Scene {
     this.knight = this.add.sprite(120, 30, 'knight_idle').setScale(3).setInteractive();
     this.input.setDraggable(this.knight);
     this.knight!.anims.play('knight_idle_anim');
+    this.knight.setName('knight');
 
     //necromancer
     this.necromancer = this.add.sprite(120, 120, 'necromancer_idle').setScale(3).setInteractive();;
     this.input.setDraggable(this.necromancer);
     this.necromancer!.anims.play('necromancer_idle_anim');
+    this.necromancer.setName('necromancer');
 
     //ice_zombie
     this.ice_zombie = this.add.sprite(120, 200, 'ice_zombie_idle').setScale(3).setInteractive();;
     this.input.setDraggable(this.ice_zombie);
     this.ice_zombie!.anims.play('ice_zombie_idle_anim');
+    this.ice_zombie.setName('ice_zombie');
 
     //masked_orc
     this.masked_orc = this.add.sprite(120, 260, 'masked_orc_idle').setScale(3).setInteractive();;
     this.input.setDraggable(this.masked_orc);
     this.masked_orc!.anims.play('masked_orc_idle_anim');
-
+    this.masked_orc.setName('masked_orc');
 
 
     const events = Phaser.Input.Events;
@@ -117,9 +125,15 @@ export class Scene extends Phaser.Scene {
     this.input.on(events.DRAG_END, (pointer: Phaser.Input.Pointer, character: GameObjects.Sprite, dropZone: boolean) => {
       if (dropZone) {
 
-        alert(character.texture.key);
-        //toucanPiece.x = toucanPiece.input.dragStartX;
-        //toucanPiece.y = toucanPiece.input.dragStartY;
+        alert(character.name);
+
+        this.bd_scene = this.add.image(this.scale.width / 2, this.scale.height / 2, 'bg_scene');
+
+        //to refactor
+        this.myCharacter = character;
+        this.myCharacter.setDepth(100);
+
+        
       }
       character.setDepth(0);
       character.setScale(3);  
