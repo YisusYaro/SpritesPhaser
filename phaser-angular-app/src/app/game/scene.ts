@@ -178,6 +178,10 @@ export class Scene extends Phaser.Scene {
       character.setScale(3);
       character.setRotation(0);
       if (dropZone) {
+        // mandar a otra escena
+        //console.log("iniciando la nueva escena");
+        //this.myCharacter = character;
+        // resto de la escena
 
         this.bd_scene = this.add.image(this.scale.width / 2, this.scale.height / 2, 'bg_scene');
 
@@ -186,13 +190,15 @@ export class Scene extends Phaser.Scene {
         this.myCharacter.setDepth(100);
         this.myCharacter.x = 100;
         this.myCharacter.y = 200;
-
+        
         //to refactor
         if (this.myCharacter.name == 'knight') {
           this.necromancer!.destroy();
           this.ice_zombie!.destroy();
           this.masked_orc!.destroy();
+          this.scene.start('Loader');
         }
+        
         if (this.myCharacter.name == 'necromancer') {
           this.knight!.destroy();
           this.ice_zombie!.destroy();
@@ -208,6 +214,7 @@ export class Scene extends Phaser.Scene {
           this.necromancer!.destroy();
           this.ice_zombie!.destroy();
         }
+        
       }
 
     });
