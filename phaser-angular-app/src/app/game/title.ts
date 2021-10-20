@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 
-export class Scene extends Phaser.Scene {
+export class Title extends Phaser.Scene {
 
   wood?: GameObjects.Image;
   portal?: GameObjects.Sprite;
@@ -30,7 +30,7 @@ export class Scene extends Phaser.Scene {
 
 
   constructor() {
-    super({ key: "menu" });
+    super({ key: "Title" });
     this.characterNames = ['knight', 'necromancer', 'ice_zombie', 'masked_orc'];
     this.isFirstClick = true;
     this.radians = 0;
@@ -178,10 +178,6 @@ export class Scene extends Phaser.Scene {
       character.setScale(3);
       character.setRotation(0);
       if (dropZone) {
-        // mandar a otra escena
-        //console.log("iniciando la nueva escena");
-        //this.myCharacter = character;
-        // resto de la escena
 
         this.bd_scene = this.add.image(this.scale.width / 2, this.scale.height / 2, 'bg_scene');
 
@@ -196,13 +192,15 @@ export class Scene extends Phaser.Scene {
           this.necromancer!.destroy();
           this.ice_zombie!.destroy();
           this.masked_orc!.destroy();
-          this.scene.start('Loader');
         }
         
         if (this.myCharacter.name == 'necromancer') {
           this.knight!.destroy();
           this.ice_zombie!.destroy();
           this.masked_orc!.destroy();
+
+          this.scene.start('Loader');
+
         }
         if (this.myCharacter.name == 'ice_zombie') {
           this.knight!.destroy();

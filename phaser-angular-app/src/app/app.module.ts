@@ -4,8 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { GameComponent } from './game/game.component';
 import { AppRoutingModule } from './app-routing.module';
-import { Scene } from './game/scene';
+import { Title } from './game/title';
 import { Loader } from './game/loader';
+import { House } from './game/house';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { Loader } from './game/loader';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [Scene, Loader],
+  providers: [Title, Loader, House],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

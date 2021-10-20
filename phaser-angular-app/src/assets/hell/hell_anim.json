@@ -1,0 +1,44 @@
+{
+    "anims": [
+        {
+            "key": "hell_anim",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "hell",
+                    "frame": "frame_0_delay-0.1s"
+                },
+                {
+                    "key": "hell",
+                    "frame": "frame_1_delay-0.1s"
+                },
+                {
+                    "key": "hell",
+                    "frame": "frame_2_delay-0.1s"
+                },
+                {
+                    "key": "hell",
+                    "frame": "frame_3_delay-0.1s"
+                },
+                {
+                    "key": "hell",
+                    "frame": "frame_4_delay-0.1s"
+                },
+                {
+                    "key": "hell",
+                    "frame": "frame_5_delay-0.1s"
+                },
+                {
+                    "key": "hell",
+                    "frame": "frame_6_delay-0.1s"
+                },
+                {
+                    "key": "hell",
+                    "frame": "frame_7_delay-0.1s"
+                }
+            ]
+        }
+    ]
+}
