@@ -192,6 +192,7 @@ export class Title extends Phaser.Scene {
           this.necromancer!.destroy();
           this.ice_zombie!.destroy();
           this.masked_orc!.destroy();
+          this.scene.start('Loader_c');
         }
         
         if (this.myCharacter.name == 'necromancer') {

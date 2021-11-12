@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { Title } from './game/title';
 import { Loader } from './game/loader';
 import { House } from './game/house';
+import { Loader_c } from './game/loader_c';
+import { game } from './game/game';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,7 @@ import { House } from './game/house';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [Title, Loader, House],
+  providers: [Title, Loader, House, Loader_c, game],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import Phaser from 'phaser';
+import { game } from './game';
 import { House } from './house';
 import { Loader } from './loader';
+import { Loader_c } from './loader_c';
 import { Title } from './title';
 
 @Component({
@@ -22,7 +24,7 @@ export class GameComponent implements OnInit, OnDestroy {
     this.config = {
       width: 454,
       height: 313,
-      scene: [Title, Loader, House],
+      scene: [Title, Loader, House, Loader_c, game],
       parent: 'game-container',
       pixelArt: true,
     };
